@@ -8,7 +8,7 @@ collectRouter.post("/usercollect", async (req, res) => {
   //3表联查  shopdetail  collect  user
   const {userId} = req.body
   const sql = `
-  select s.descs,s.title,s.detailId,s.titleImg,s.prePrice,s.price,s.tag,
+  select s.descs,s.title,s.detailId,s.titleImg,s.prePrice,s.price,
   c.collectTime,c.collectId from shopdetail s inner join collect c on s.detailId = c.detailId 
    inner join user u on c.userId = u.userId where c.userId = ${userId} order by collectId desc `
   query(sql,(result)=>{

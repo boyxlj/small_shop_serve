@@ -1,9 +1,9 @@
 const mysqlConfig = {
-  host:"60.205.226.237",
+  host:"localhost",
   database:"wei_shop",
   user:"wei_shop",
-  password:"wasd123456",
-  port:"3306"
+  password:"root",
+  port:"3307"
 }
 
 module.exports = mysqlConfig

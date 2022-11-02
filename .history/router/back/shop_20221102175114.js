@@ -42,7 +42,7 @@ shopRouter.post("/add/shop", async (req, res) => {
 
 //修改商品
 shopRouter.post("/update/shop/base/info", async (req, res) => {
-  let {title,descs,parent,prePrice,price,detailDesc,titleImg,detailId,tag} = req.body
+  const {title,descs,parent,prePrice,price,detailDesc,titleImg,detailId,tag} = req.body
   if(!Number(prePrice)){
     prePrice=""
   }

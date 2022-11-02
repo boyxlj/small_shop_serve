@@ -1,10 +1,8 @@
 const categoryRouter = require("express")()
 const query = require("../../util/mysql2")
 
-//查询分类
-/* 
-  type == "category" ?查询分类 : 查询商品
-*/
+//商品标签
+
 categoryRouter.get("/category", async (req, res) => {  
   const { type } = req.query
   const sql = "select * from shopdetail"

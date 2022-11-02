@@ -23,9 +23,7 @@ shopRouter.get("/select/shop", async (req, res) => {
 //添加商品
 shopRouter.post("/add/shop", async (req, res) => {
   let {title,descs,parent,prePrice,price,detailDesc,titleImg,tag} = req.body
-  if(!Number(prePrice)){
-    prePrice=""
-  }
+  if()
   const sql = `insert into shopdetail(title,descs,parent,prePrice,price,
     detailDesc,titleImg,tag) values('${title}','${descs}','${parent}',
     '${prePrice}','${price}','${detailDesc}','${titleImg}','${tag}') `
@@ -42,28 +40,14 @@ shopRouter.post("/add/shop", async (req, res) => {
 
 //修改商品
 shopRouter.post("/update/shop/base/info", async (req, res) => {
-  let {title,descs,parent,prePrice,price,detailDesc,titleImg,detailId,tag} = req.body
-  if(!Number(prePrice)){
-    prePrice=""
-  }
-  if(titleImg){
-    const sql = `update shopdetail set title = '${title}',descs = '${descs}',parent = '${parent}'
-    ,prePrice = '${prePrice}',price = '${price}',detailDesc = '${detailDesc}',titleImg = '${titleImg}',tag = '${tag}'
-   where detailId = '${detailId}'`
-    query(sql, (result) => {
-      if (result.length==false) return res.send({ code: 404, msg: "修改失败" })
-      res.send({ code: 200, msg: "修改成功" })
-    })
-  }else{
-    const sql = `update shopdetail set title = '${title}',descs = '${descs}',parent = '${parent}'
-    ,prePrice = '${prePrice}',price = '${price}',detailDesc = '${detailDesc}',tag = '${tag}'
-   where detailId = '${detailId}'`
-    query(sql, (result) => {
-      if (result.length==false) return res.send({ code: 404, msg: "修改失败" })
-      res.send({ code: 200, msg: "修改成功" })
-    })
-  }
-
+  const {title,descs,parent,prePrice,price,detailDesc,titleImg,detailId,tag} = req.body
+  const sql = `update shopdetail set title = '${title}',descs = '${descs}',parent = '${parent}'
+  ,prePrice = '${prePrice}',price = '${price}',detailDesc = '${detailDesc}',titleImg = '${titleImg}',tag = '${tag}'
+ where detailId = '${detailId}'`
+  query(sql, (result) => {
+    if (result.length==false) return res.send({ code: 404, msg: "修改失败" })
+    res.send({ code: 200, msg: "修改成功" })
+  })
 })
 
 //添加轮播

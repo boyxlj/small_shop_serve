@@ -1,5 +1,7 @@
 const categoryRouter = require("express")()
 const query = require("../../util/mysql2")
+// const JWT = require("../../util/jst")
+//后台
 
 //查询分类
 /* 
@@ -40,8 +42,6 @@ categoryRouter.post("/update/category", async (req, res) => {   //shopdetail
       res.send({ code: 200, msg: "修改分类成功" })
     })
 })
-
-
 //删除分类
 categoryRouter.post("/delete/category", async (req, res) => {   //shopdetail
   const {detailId } = req.body

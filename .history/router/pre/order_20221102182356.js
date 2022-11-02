@@ -297,7 +297,7 @@ orderRouter.post("/select/order/list", async (req, res) => {
 orderRouter.post("/select/order/list/detail", async (req, res) => {
   const { orderNumber } = req.body
   const ALLPATH = `o.orderId,o.singleTotalPrice,o.type,o.orderNumber,o.createTime,o.sendTime,o.pay,
-  o.detailId,o.num,o.price,s.title,s.prePrice,s.titleImg,s.tag,a.name,a.phone,a.detailAddress
+  o.detailId,o.num,o.price,s.title,s.prePrice,s.titleImg,a.name,a.phone,a.detailAddress
   from orderdetail o inner join shopdetail s on o.detailId = s.detailId inner join address a on o.addressId = a.addressId`
   const sql = `select ${ALLPATH} where o.orderNumber = "${orderNumber}" `
   query(sql, async (result) => {

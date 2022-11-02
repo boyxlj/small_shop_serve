@@ -22,13 +22,10 @@ shopRouter.get("/select/shop", async (req, res) => {
 
 //添加商品
 shopRouter.post("/add/shop", async (req, res) => {
-  let {title,descs,parent,prePrice,price,detailDesc,titleImg,tag} = req.body
-  if(!Number(prePrice)){
-    prePrice=""
-  }
+  const {title,descs,parent,prePrice,price,detailDesc,titleImg} = req.body
   const sql = `insert into shopdetail(title,descs,parent,prePrice,price,
-    detailDesc,titleImg,tag) values('${title}','${descs}','${parent}',
-    '${prePrice}','${price}','${detailDesc}','${titleImg}','${tag}') `
+    detailDesc,titleImg) values('${title}','${descs}','${parent}',
+    '${prePrice}','${price}','${detailDesc}','${titleImg}') `
   const sql1 = `select * from shopdetail order by detailId desc`
   query(sql, (result) => {
     if (result.length==false) return res.send({ code: 404, msg: "添加失败" })
@@ -42,28 +39,14 @@ shopRouter.post("/add/shop", async (req, res) => {
 
 //修改商品
 shopRouter.post("/update/shop/base/info", async (req, res) => {
-  let {title,descs,parent,prePrice,price,detailDesc,titleImg,detailId,tag} = req.body
-  if(!Number(prePrice)){
-    prePrice=""
-  }
-  if(titleImg){
-    const sql = `update shopdetail set title = '${title}',descs = '${descs}',parent = '${parent}'
-    ,prePrice = '${prePrice}',price = '${price}',detailDesc = '${detailDesc}',titleImg = '${titleImg}',tag = '${tag}'
-   where detailId = '${detailId}'`
-    query(sql, (result) => {
-      if (result.length==false) return res.send({ code: 404, msg: "修改失败" })
-      res.send({ code: 200, msg: "修改成功" })
-    })
-  }else{
-    const sql = `update shopdetail set title = '${title}',descs = '${descs}',parent = '${parent}'
-    ,prePrice = '${prePrice}',price = '${price}',detailDesc = '${detailDesc}',tag = '${tag}'
-   where detailId = '${detailId}'`
-    query(sql, (result) => {
-      if (result.length==false) return res.send({ code: 404, msg: "修改失败" })
-      res.send({ code: 200, msg: "修改成功" })
-    })
-  }
-
+  const {title,descs,parent,prePrice,price,detailDesc,titleImg,detailId} = req.body
+  const sql = `update shopdetail set title = '${title}',descs = '${descs}',parent = '${parent}'
+  ,prePrice = '${prePrice}',price = '${price}',detailDesc = '${detailDesc}',titleImg = '${titleImg}'
+ where detailId = '${detailId}'`
+  query(sql, (result) => {
+    if (result.length==false) return res.send({ code: 404, msg: "修改失败" })
+    res.send({ code: 200, msg: "修改成功" })
+  })
 })
 
 //添加轮播
@@ -99,6 +82,7 @@ shopRouter.post("/add/shop/swiper", async (req, res) => {
   swiperList.map(item=>(
     query(`insert into shopswiper(detailId,imgs) values("${detailId}","${item}")`, (result1) => {
       if (result1.length==false) return res.send({ code: 404, msg: "商品轮播添加失败" })
+        // res.send({ code: 200, msg: "商品轮播添加成功" })
     })
   ))
   setTimeout(() => {
@@ -115,6 +99,7 @@ shopRouter.get("/select/shop/any/one", async (req, res) => {
   query(sql, (result) => {
     if (!result.length) return res.send({ code: 404, msg: "查询失败" })
     query(sql1, (result1) => {
+      // if (!result1.length) return res.send({ code: 404, msg: "查询失败" })
       res.send({ code: 200, msg: "查询成功", data: result,swiper:result1, dataTotal: result.length,swiperTotal:result1.length })
     })
   })

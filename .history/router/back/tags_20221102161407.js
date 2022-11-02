@@ -1,11 +1,9 @@
-const categoryRouter = require("express")()
+const tagRouter = require("express")()
 const query = require("../../util/mysql2")
 
-//查询分类
-/* 
-  type == "category" ?查询分类 : 查询商品
-*/
-categoryRouter.get("/category", async (req, res) => {  
+//商品标签
+
+tagRouter.get("/tags", async (req, res) => {  
   const { type } = req.query
   const sql = "select * from shopdetail"
   query(sql, (result) => {
@@ -20,8 +18,8 @@ categoryRouter.get("/category", async (req, res) => {
   })
 })
 
-//添加分类
-categoryRouter.post("/add/category", async (req, res) => {   //shopdetail
+//添加标签
+tagRouter.post("tags", async (req, res) => {   //shopdetail
   const { categoryName } = req.body
     const sql = `insert into shopdetail(categoryName) values("${categoryName}")`
     query(sql, (result) => {
@@ -31,8 +29,8 @@ categoryRouter.post("/add/category", async (req, res) => {   //shopdetail
 })
 
 
-//修改分类
-categoryRouter.post("/update/category", async (req, res) => {   //shopdetail
+//修改标签
+tagRouter.post("/update/category", async (req, res) => {   //shopdetail
   const { categoryName,detailId } = req.body
     const sql = `update shopdetail set categoryName = "${categoryName}" where detailId = "${detailId}"`
     query(sql, (result) => {
@@ -42,8 +40,8 @@ categoryRouter.post("/update/category", async (req, res) => {   //shopdetail
 })
 
 
-//删除分类
-categoryRouter.post("/delete/category", async (req, res) => {   //shopdetail
+//删除标签
+tagRouter.post("/delete/category", async (req, res) => {   //shopdetail
   const {detailId } = req.body
     const sql = `delete from shopdetail where detailId = "${detailId}"`
     query(sql, (result) => {
@@ -55,4 +53,4 @@ categoryRouter.post("/delete/category", async (req, res) => {   //shopdetail
 
 
 
-module.exports = categoryRouter
+module.exports = tagRouter

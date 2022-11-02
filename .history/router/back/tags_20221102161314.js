@@ -1,7 +1,7 @@
 const categoryRouter = require("express")()
 const query = require("../../util/mysql2")
 
-//查询分类
+//商品标签
 /* 
   type == "category" ?查询分类 : 查询商品
 */
