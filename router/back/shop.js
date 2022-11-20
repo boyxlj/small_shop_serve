@@ -46,6 +46,9 @@ shopRouter.post("/update/shop/base/info", async (req, res) => {
   if(!Number(prePrice)){
     prePrice=""
   }
+  if(!tag){
+    tag=""
+  }
   if(titleImg){
     const sql = `update shopdetail set title = '${title}',descs = '${descs}',parent = '${parent}'
     ,prePrice = '${prePrice}',price = '${price}',detailDesc = '${detailDesc}',titleImg = '${titleImg}',tag = '${tag}'
