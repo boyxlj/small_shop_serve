@@ -19,15 +19,6 @@ const getTotalPrice = (arr) => {
 }
 
 
-//查询购物车商品
-orderRouter.get("/select/car", async (req, res) => {
-  const sql = `select * from car`
-  query(sql, (result) => {
-    if (!result.length) return res.send({ code: 404, msg: "查询失败" })
-    res.send({ code: 200, msg: "查询成功",data:result, total: result.length })
-  })
-})
-
 
 //订单查询
 orderRouter.post("/select/order/list", async (req, res) => {

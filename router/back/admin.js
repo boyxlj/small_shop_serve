@@ -13,7 +13,7 @@ adminRouter.post("/login",(req,res)=>{
       const token = jwt.setToken({username,password},"1d")
       res.header("authorization",token)
       res.header("Access-Control-Expose-Headers","authorization")
-      res.send({code:200,msg:"登录成功",token})
+      res.send({code:200,msg:"登录成功",token,secret:result2[0]?.secret})
     })
   })
   
