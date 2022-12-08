@@ -234,11 +234,9 @@ orderRouter.post("/select/order/list", async (req, res) => {
         })
       })
       setTimeout(() => {
-        const sortArr = newArr.sort((a,b)=>{
-          return  b.orderList[0].orderId-a.orderList[0].orderId
-         })
+       
         res.send({
-          code: 200, msg: "查询成功", data: sortArr, total: newArr.length
+          code: 200, msg: "查询成功", data: newArr, total: newArr.length
         })
       }, 50)
     })
@@ -262,11 +260,9 @@ orderRouter.post("/select/order/list", async (req, res) => {
         })
       })
       setTimeout(() => {
-        const sortArr = newArr.sort((a,b)=>{
-         return  b.orderList[0].orderId-a.orderList[0].orderId
-        })
+        console.log(newArr)
         res.send({
-          code: 200, msg: "查询成功", data: sortArr, total: newArr.length
+          code: 200, msg: "查询成功", data: newArr, total: newArr.length
         })
       }, 50)
     })
@@ -290,11 +286,8 @@ orderRouter.post("/select/order/list", async (req, res) => {
       })
 
       setTimeout(() => {
-        const sortArr = newArr.sort((a,b)=>{
-          return  b.orderList[0].orderId-a.orderList[0].orderId
-         })
         res.send({
-          code: 200, msg: "查询成功", data: sortArr, total: newArr.length
+          code: 200, msg: "查询成功", data: newArr, total: newArr.length
         })
       }, 50)
     })

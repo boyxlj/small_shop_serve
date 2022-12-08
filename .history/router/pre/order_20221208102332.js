@@ -23,7 +23,7 @@ orderRouter.post("/selectcar", async (req, res) => {
   const { userId } = req.body
   const sql = `
      select c.carId,c.createTime,s.detailId,c.num,
-     u.userId,s.title,s.titleImg,s.prePrice,s.price,s.tag,
+     u.userId,s.title,s.titleImg,s.prePrice,s.price,s.tag
      from car c inner join user u on c.userId = u.userId 
      inner join shopdetail s on s.detailId = c.detailId 
      where c.userId = "${userId}" order by c.carId desc 
@@ -150,7 +150,7 @@ orderRouter.post("/submitorder", async (req, res) => {
 orderRouter.post("/confirmorder", async (req, res) => {
   const { orderNumber } = req.body
   const sql = `select o.orderId,o.singleTotalPrice,o.orderNumber,o.type,o.createTime,o.sendTime,o.pay,
-  o.detailId,o.num,o.price,s.title,s.prePrice,s.titleImg
+  o.detailId,o.num,o.price,s.title,s.prePrice,s.titleImg,s.tag
   from orderdetail o inner join shopdetail s on o.detailId = s.detailId 
   where orderNumber = "${orderNumber}" `
   query(sql, (result) => {
@@ -184,7 +184,7 @@ orderRouter.post("/set/order/state", async (req, res) => {
 orderRouter.post("/confirm/pay/order", async (req, res) => {
   const { orderNumber } = req.body
   const sql = `select o.orderId,o.singleTotalPrice,o.orderNumber,o.type,o.createTime,o.sendTime,o.pay,
-  o.detailId,o.num,o.price,s.title,s.prePrice,s.titleImg,a.name,a.phone,a.detailAddress
+  o.detailId,o.num,o.price,s.title,s.prePrice,s.titleImg,s.tag,a.name,a.phone,a.detailAddress
   from orderdetail o inner join shopdetail s on o.detailId = s.detailId inner join address a on o.addressId = a.addressId
   where orderNumber = "${orderNumber}" `
   query(sql, (result) => {
@@ -210,7 +210,7 @@ const getTotalPrice = (arr) => {
 orderRouter.post("/select/order/list", async (req, res) => {
   const { userId, type } = req.body
   const ALLPATH = `o.orderId,o.singleTotalPrice,o.type,o.orderNumber,o.createTime,o.sendTime,o.pay,
-  o.detailId,o.num,o.price,s.title,s.prePrice,s.titleImg,a.name,a.phone,a.detailAddress
+  o.detailId,o.num,o.price,s.title,s.prePrice,s.titleImg,s.tag,a.name,a.phone,a.detailAddress
   from orderdetail o inner join shopdetail s on o.detailId = s.detailId inner join address a on o.addressId = a.addressId`
   const sql = `select ${ALLPATH} where o.userId = "${userId}" order by orderId desc`
   const sql1 = `select ${ALLPATH} where o.type = "2" and o.userId = "${userId}" order by orderId desc`
@@ -234,6 +234,7 @@ orderRouter.post("/select/order/list", async (req, res) => {
         })
       })
       setTimeout(() => {
+        console.log(newArr)
         res.send({
           code: 200, msg: "查询成功", data: newArr, total: newArr.length
         })
@@ -297,7 +298,7 @@ orderRouter.post("/select/order/list", async (req, res) => {
 orderRouter.post("/select/order/list/detail", async (req, res) => {
   const { orderNumber } = req.body
   const ALLPATH = `o.orderId,o.singleTotalPrice,o.type,o.orderNumber,o.createTime,o.sendTime,o.pay,
-  o.detailId,o.num,o.price,s.title,s.prePrice,s.titleImg,a.name,a.phone,a.detailAddress
+  o.detailId,o.num,o.price,s.title,s.prePrice,s.titleImg,s.tag,a.name,a.phone,a.detailAddress
   from orderdetail o inner join shopdetail s on o.detailId = s.detailId inner join address a on o.addressId = a.addressId`
   const sql = `select ${ALLPATH} where o.orderNumber = "${orderNumber}" `
   query(sql, async (result) => {

@@ -234,6 +234,7 @@ orderRouter.post("/select/order/list", async (req, res) => {
         })
       })
       setTimeout(() => {
+       
         res.send({
           code: 200, msg: "查询成功", data: newArr, total: newArr.length
         })
@@ -259,8 +260,12 @@ orderRouter.post("/select/order/list", async (req, res) => {
         })
       })
       setTimeout(() => {
+        const sortArr = newArr.sort((a,b)=>{
+          a.orderList[0].orderId-b.orderList[0].orderId
+        })
+        console.log(sortArr)
         res.send({
-          code: 200, msg: "查询成功", data: newArr, total: newArr.length
+          code: 200, msg: "查询成功", data: sortArr, total: newArr.length
         })
       }, 50)
     })
